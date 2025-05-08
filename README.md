@@ -71,3 +71,23 @@ Within `supervisord.conf`, VNC resolution for noVNC can be increased to higher r
 
 Rebuild the docker container `docker-compose up -d --build`
 
+## If Root partition runs out of space: Migrating Docker folder
+
+Docker by default uses the Root partition at `/var/lib/docker`, which can be a problem given how big this docker image can get. You might face issues with root partition running out of space in a split home setup.
+1) Debug Free Space: `df -h /` and `df -h /home` 
+2) Stop docker: `sudo systemctl stop docker` and `sudo systemctl stop docker.socket`
+3) Make new directory: `mkdir -p /home/<user>/docker` and `sudo chown <user>:<user> /home/<user>/docker`
+4) Backup docker: `sudo rsync -a /var/lib/docker /home/<user>/docker`
+5) Create a new Docker Daemon configuration to specify new data root: `sudo mkdir -p /etc/docker` and `sudo nano /etc/docker/daemon.json`
+```json
+{
+  "data-root": "/home/<user>/docker"
+}
+```
+
+6) Clean up old docker path to free up root partition: `sudo rm -rf /var/lib/docker`
+7) Restart docker: `sudo systemctl start docker` and `sudo systemctl enable docker`
+8) Sanity check for new directory: `docker info --format '{{.DockerRootDir}}'`
+
+
+

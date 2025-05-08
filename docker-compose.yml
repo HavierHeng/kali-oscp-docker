@@ -1,0 +1,29 @@
+version: '3.8'
+
+services:
+  kali-oscp:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: kali-oscp
+    container_name: kali-oscp
+    network_mode: host
+    cap_add:
+      - NET_ADMIN
+      - NET_RAW
+      - SYS_PTRACE
+    devices:
+      - /dev/net/tun:/dev/net/tun
+    security_opt:
+      - seccomp=unconfined
+    shm_size: 2g
+    mem_limit: 8g
+    cpus: 4
+    volumes:
+      - ./oscp:/oscp
+    working_dir: /oscp
+    ports:
+      - "2222:22"  # SSH - Host:2222 to container:22
+      - "6080:6080"  # noVNC Web interface
+      - "8000:8080"  # Web server - Host:8000 to container:80
+    restart: unless-stopped

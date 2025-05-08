@@ -6,14 +6,15 @@ LABEL description="Kali Linux for OSCP with noVNC, OpenVPN, and Dev Environment"
 ENV DEBIAN_FRONTEND=noninteractive
 ENV TERM=xterm-256color
 
-# Fix sources.list to HTTPS
-RUN echo "deb https://http.kali.org/kali kali-rolling main contrib non-free" > /etc/apt/sources.list && \
-    echo "deb-src https://http.kali.org/kali kali-rolling main contrib non-free" >> /etc/apt/sources.list
+# Bootstrap HTTP certificates before HTTPS
+RUN apt-get update && apt-get install -y ca-certificates apt-transport-https
+
+# Install Kali Linux Desktop Full Utilities
+RUN apt-get update && apt-get install -y kali-linux-default
 
 # Install OSCP tools, OpenVPN, SSH, noVNC, dev tools, and utilities
 # TODO: These are my preference - change to your development tools
 RUN apt-get update && apt-get install -y \
-    kali-linux-default \
     openvpn \
     curl \
     nano \
@@ -41,7 +42,6 @@ RUN apt-get update && apt-get install -y \
     dnsutils \
     tmux \
     rlwrap \
-    nmap-vulners \
     kitty \
     neovim \
     nodejs \
@@ -51,6 +51,12 @@ RUN apt-get update && apt-get install -y \
     gdb \
     valgrind \
     && apt-get clean && rm -rf /var/lib/apt/lists/*
+
+# Fix sources.list to HTTPS
+# Done after the build stage as HTTPS is prone to breaking
+RUN echo "deb https://http.kali.org/kali kali-rolling main contrib non-free" > /etc/apt/sources.list && \
+    echo "deb-src https://http.kali.org/kali kali-rolling main contrib non-free" >> /etc/apt/sources.list
+
 
 # Set up neovim with kickstart.nvim
 RUN git clone https://github.com/nvim-lua/kickstart.nvim.git /root/.config/nvim && \

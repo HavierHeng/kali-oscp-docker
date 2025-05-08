@@ -20,9 +20,12 @@ A personal recommendation for this docker container is to run it on your own ser
 
 ## Setup
 
+> Warning: Kali Linux Desktop is large. Expect a few GB of space free. With docker's default configuration, it will try to put the docker images into `/var/lib/docker` which is on your root partition. If this is not desired, you have to stop docker and modiy its `/etc/docker/daemon.json` to point to another "data-root"
+
 Install docker compose (apt-based e.g Debian and Ubuntu): `sudo apt update && sudo apt install docker-compose-plugin`
 
 Build and run container: `docker-compose up -d`
+
 
 Default login password for ssh and novnc: `P@ssw0rd`
 

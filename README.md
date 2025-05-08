@@ -19,6 +19,9 @@ Also given the nature of the hacking tools, this docker container has a lot of p
 A personal recommendation for this docker container is to run it on your own server, and then VPN and connect into it from anywhere from a thin client. 
 
 ## Setup
+
+Install docker compose (apt-based e.g Debian and Ubuntu): `sudo apt update && sudo apt install docker-compose-plugin`
+
 Build and run container: `docker-compose up -d`
 
 Default login password for ssh and novnc: `P@ssw0rd`

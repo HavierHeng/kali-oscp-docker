@@ -46,21 +46,32 @@ RUN apt-get update && apt-get install -y \
     neovim \
     nodejs \
     npm \
+    make \
+    gcc \
+    ripgrep \
+    unzip \
+    xclip \
     ranger \
     build-essential \
     gdb \
     valgrind \
     && apt-get clean && rm -rf /var/lib/apt/lists/*
 
+# Install JetBrainsMono Nerd font
+RUN curl -fLo /tmp/JetBrainsMono.zip https://github.com/ryanoasis/nerd-fonts/releases/latest/download/JetBrainsMono.zip && \
+    mkdir -p /usr/local/share/fonts && \
+    unzip /tmp/JetBrainsMono.zip -d /usr/local/share/fonts/ && \
+    fc-cache -fv && \
+    rm /tmp/JetBrainsMono.zip
+
 # Fix sources.list to HTTPS
 # Done after the build stage as HTTPS is prone to breaking
 RUN echo "deb https://http.kali.org/kali kali-rolling main contrib non-free" > /etc/apt/sources.list && \
     echo "deb-src https://http.kali.org/kali kali-rolling main contrib non-free" >> /etc/apt/sources.list
 
-
 # Set up neovim with kickstart.nvim
-RUN git clone https://github.com/nvim-lua/kickstart.nvim.git /root/.config/nvim && \
-    nvim --headless -c 'autocmd User LazyDone quitall' +Lazy sync && \
+RUN git clone https://github.com/nvim-lua/kickstart.nvim.git /root/.config/nvim 
+RUN nvim --headless -c 'autocmd User LazyDone quitall' +Lazy sync && \
     pip3 install --no-cache-dir pynvim
 
 # Set up VNC and noVNC

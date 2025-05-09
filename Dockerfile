@@ -71,8 +71,8 @@ RUN echo "deb https://http.kali.org/kali kali-rolling main contrib non-free" > /
 
 # Set up neovim with kickstart.nvim
 RUN git clone https://github.com/nvim-lua/kickstart.nvim.git /root/.config/nvim 
-RUN nvim --headless -c 'autocmd User LazyDone quitall' +Lazy sync && \
-    pip3 install --no-cache-dir pynvim
+RUN sudo apt update && sudo apt install -y python3-pynvim
+RUN nvim --headless "+Lazy! sync" +qa 
 
 # Set up VNC and noVNC
 ENV VNC_PASSWORD=P@ssw0rd

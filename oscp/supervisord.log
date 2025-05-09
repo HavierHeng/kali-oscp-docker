@@ -1,0 +1,22 @@
+2025-05-09 03:44:02,606 CRIT Supervisor is running as root.  Privileges were not dropped because no user is specified in the config file.  If you intend to run as root, you can set user=root in the config file to avoid this message.
+2025-05-09 03:44:02,613 INFO supervisord started with pid 1
+2025-05-09 03:44:03,617 INFO spawned: 'novnc' with pid 7
+2025-05-09 03:44:03,622 INFO spawned: 'sshd' with pid 8
+2025-05-09 03:44:03,626 INFO spawned: 'vncserver' with pid 9
+2025-05-09 03:44:03,666 WARN exited: vncserver (exit status 2; not expected)
+2025-05-09 03:44:03,670 WARN exited: sshd (exit status 255; not expected)
+2025-05-09 03:44:05,265 INFO success: novnc entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2025-05-09 03:44:05,268 INFO spawned: 'sshd' with pid 10
+2025-05-09 03:44:05,272 INFO spawned: 'vncserver' with pid 11
+2025-05-09 03:44:05,301 WARN exited: vncserver (exit status 2; not expected)
+2025-05-09 03:44:05,308 WARN exited: sshd (exit status 255; not expected)
+2025-05-09 03:44:07,313 INFO spawned: 'sshd' with pid 12
+2025-05-09 03:44:07,316 INFO spawned: 'vncserver' with pid 13
+2025-05-09 03:44:07,344 WARN exited: vncserver (exit status 2; not expected)
+2025-05-09 03:44:07,352 WARN exited: sshd (exit status 255; not expected)
+2025-05-09 03:44:10,359 INFO spawned: 'sshd' with pid 14
+2025-05-09 03:44:10,363 INFO spawned: 'vncserver' with pid 15
+2025-05-09 03:44:10,391 WARN exited: vncserver (exit status 2; not expected)
+2025-05-09 03:44:10,398 INFO gave up: vncserver entered FATAL state, too many start retries too quickly
+2025-05-09 03:44:10,398 WARN exited: sshd (exit status 255; not expected)
+2025-05-09 03:44:11,400 INFO gave up: sshd entered FATAL state, too many start retries too quickly
